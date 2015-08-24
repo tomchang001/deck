@@ -1,12 +1,12 @@
 'use strict';
 
+// Card class that holds basic values; possible extension
 function Card(suit, value) {
     this.suit = suit;
     this.value = value;
 }
 
 // expects an array of suits, card values
-/* exported Deck */
 function Deck(suits, values) {
     // if suits and values are not arrays, then set to null
     this.suits = (suits !== 'undefined' && suits && suits.constructor === Array) ? suits : null;
@@ -22,7 +22,8 @@ function Deck(suits, values) {
     };
 
 
-    // method to create some integer of decks, based on the arrays of suits and values
+    // method to create some integer number of decks, based on the arrays of suits and values
+    // if a non-integer is passed in, then the default of 1 deck is set
     this.newDeck = function (numberOfDecks) {
         if (this.hasSuitsAndValues()) {
             var allCards = [];
@@ -59,7 +60,7 @@ function Deck(suits, values) {
         }
     };
 
-    // outputs the "first" card value and removes it from the list
+    // outputs the "first" card value and removes it from the list if the list is not empty
     // uses shift, but could also use pop.  when shuffled, it does not matter.
     this.draw = function (numberOfCards) {
         var drawnCards = [];
@@ -73,7 +74,7 @@ function Deck(suits, values) {
         return drawnCards;
     };
 
-    // shuffles all of the cards
+    // shuffles all of the cards, if there are any cards to shuffle
     this.shuffle = function () {
         // Fisher-Yates Shuffle
         var i = this.cards.length;
@@ -86,7 +87,7 @@ function Deck(suits, values) {
         }
     };
 
-    // picks a random card from the deck
+    // picks a random card from the deck if the deck is not empty
     // replacement is optional
     this.drawRandom = function (isReplaced) {
         if (!this.isEmptyDeck()) {
@@ -112,6 +113,7 @@ function Deck(suits, values) {
     };
 
     // allow for addition of different decks, to assist in building more complex deck types
+    // expects an array of cards to add to the current array of cards
     this.addCards = function (cards) {
         if (cards !== 'undefined' && cards && cards.constructor === Array) {
             this.cards = this.cards.concat(cards);
