@@ -106,9 +106,11 @@ function Deck(suits, values) {
     // allow for addition of special cards, like Wilds
     this.addCard = function (card, numberOfCards) {
         var addedCards = (parseInt(numberOfCards) !== numberOfCards || numberOfCards < 1) ? 1 : parseInt(numberOfCards);
-        var i;
-        for (i = 0; i < addedCards; i += 1) {
-            this.cards.push(card);
+        if (card instanceof Card) {
+	        var i;
+	        for (i = 0; i < addedCards; i += 1) {
+	            this.cards.push(card);
+	        }        	
         }
     };
 
@@ -116,7 +118,12 @@ function Deck(suits, values) {
     // expects an array of cards to add to the current array of cards
     this.addCards = function (cards) {
         if (cards !== 'undefined' && cards && cards.constructor === Array) {
-            this.cards = this.cards.concat(cards);
+	        var i;
+	        for (i = 0; i < cards.length; i += 1) {
+		        if (cards[i] instanceof Card) {
+	            	this.cards.push(cards[i]);
+	        	}
+	        }   
         }
     };
 }

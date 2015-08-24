@@ -29,6 +29,18 @@ define(['jquery', 'deck'], function($) {
 		});
 	});
 
+	describe('addNonCardToDeck', function() {
+		var deck = new Deck();
+		var card = "Not a Card";
+
+		deck.addCard(card);
+
+		it('Should not add the card to the deck', function(){
+			// deck.outputDeck();
+			expect(deck.cards.length).toBe(0);
+		});
+	});
+
 	describe('addCardsToDeck', function() {
 		var deck = new Deck();
 		var card1 = new Card("Hearts", 1);
@@ -40,6 +52,21 @@ define(['jquery', 'deck'], function($) {
 		it('Should add the cards to the deck', function(){
 			// deck.outputDeck();
 			expect(deck.cards.length).toBe(2);
+		});
+	});
+
+	describe('addNonCardsToDeck', function() {
+		var deck = new Deck();
+		var card1 = "Not a card.";
+		var card2 = "Still not a card";
+		var card3 = new Card("Hearts", 1);
+		var cardArray = [card1 , card2, card3];
+
+		deck.addCards(cardArray);
+
+		it('Should only add the valid cards to the deck', function(){
+			// deck.outputDeck();
+			expect(deck.cards.length).toBe(1);
 		});
 	});
 
